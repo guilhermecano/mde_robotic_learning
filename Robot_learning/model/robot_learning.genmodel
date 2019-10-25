@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/Robot_learning/src" modelPluginID="Robot_learning"
+    modelName="Robot_learning" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>robot_learning.ecore</foreignModel>
+  <genPackages prefix="Robot_learning" disposableProviderFactory="true" ecorePackage="robot_learning.ecore#/">
+    <genClasses ecoreClass="robot_learning.ecore#//Experiment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robot_learning.ecore#//Experiment/agent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robot_learning.ecore#//Experiment/environment"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Experiment/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Experiment/id"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Environment">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robot_learning.ecore#//Environment/elements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/scene"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/headless"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/action_space"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/observation_space"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/responsible_ui"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/blocking"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Agent">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robot_learning.ecore#//Agent/model"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robot_learning.ecore#//Agent/replay_buffer"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Environment/action_space"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//RobotComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//RobotComponent/joint_names"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robot_learning.ecore#//RobotComponent/intermediate_target_base"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robot_learning.ecore#//RobotComponent/target_base"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Element">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Element/position"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Element/orientation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Element/linear_velocity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Element/angular_velocity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//Element/id"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Dummy"/>
+    <genClasses ecoreClass="robot_learning.ecore#//Model"/>
+    <genClasses ecoreClass="robot_learning.ecore#//AerialRobot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//AerialRobot/propeller_names"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Mobile">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robot_learning.ecore#//RobotComponent/target_base"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference robot_learning.ecore#//RobotComponent/intermediate_target_base"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Fixed"/>
+    <genClasses ecoreClass="robot_learning.ecore#//WheeledRobot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute robot_learning.ecore#//WheeledRobot/wheel_names"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//Arm"/>
+    <genClasses ecoreClass="robot_learning.ecore#//SAC"/>
+    <genClasses ecoreClass="robot_learning.ecore#//PPO"/>
+    <genClasses ecoreClass="robot_learning.ecore#//NeuralNetwork"/>
+    <genClasses ecoreClass="robot_learning.ecore#//ActorCritic">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robot_learning.ecore#//ActorCritic/PolicyNetwork"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference robot_learning.ecore#//ActorCritic/ValueNetwork"/>
+    </genClasses>
+    <genClasses ecoreClass="robot_learning.ecore#//ReplayBuffer"/>
+    <genClasses ecoreClass="robot_learning.ecore#//ARDrone"/>
+    <genClasses ecoreClass="robot_learning.ecore#//Panda"/>
+    <genClasses ecoreClass="robot_learning.ecore#//TurtleBot"/>
+  </genPackages>
+</genmodel:GenModel>
