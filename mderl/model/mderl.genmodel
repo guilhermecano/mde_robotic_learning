@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/mderl/src-gen" creationIcons="false" editDirectory="/mderl.edit/src-gen"
+    editorDirectory="/mderl.editor/src-gen" modelPluginID="mderl" modelName="Mderl"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="8.0" copyrightFields="false"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>mderl.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Mderl" disposableProviderFactory="true" ecorePackage="mderl.ecore#/">
+    <genClasses ecoreClass="mderl.ecore#//Experiment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Experiment/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Experiment/id"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Experiment/config"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Experiment/agent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Experiment/environment"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//Agent">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Agent/robotcomponent"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Agent/model"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//Environment">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Environment/scene"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//config"/>
+    <genClasses image="false" ecoreClass="mderl.ecore#//Mobile"/>
+    <genClasses ecoreClass="mderl.ecore#//Dummy"/>
+    <genClasses image="false" ecoreClass="mderl.ecore#//Arm"/>
+    <genClasses image="false" ecoreClass="mderl.ecore#//RobotComponent">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RobotComponent/joint_names"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//Panda"/>
+    <genClasses ecoreClass="mderl.ecore#//TurtleBot"/>
+    <genClasses image="false" ecoreClass="mderl.ecore#//Element">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/position"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/orientation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/linear_velocity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/angular_velocity"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/id"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="mderl.ecore#//Fixed"/>
+    <genClasses image="false" ecoreClass="mderl.ecore#//AerialRobot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//AerialRobot/propeller_name"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="mderl.ecore#//WheeledRobot">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//WheeledRobot/wheel_name"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//ARDrone"/>
+    <genClasses ecoreClass="mderl.ecore#//Model"/>
+    <genClasses ecoreClass="mderl.ecore#//RLKit"/>
+    <genClasses ecoreClass="mderl.ecore#//RLKSac"/>
+  </genPackages>
+</genmodel:GenModel>
