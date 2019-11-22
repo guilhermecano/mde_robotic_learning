@@ -12,7 +12,6 @@
     <genClasses ecoreClass="mderl.ecore#//Experiment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Experiment/name"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Experiment/id"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Experiment/config"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Experiment/agent"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Experiment/environment"/>
     </genClasses>
@@ -22,8 +21,8 @@
     </genClasses>
     <genClasses ecoreClass="mderl.ecore#//Environment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Environment/scene"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mderl.ecore#//Environment/agent"/>
     </genClasses>
-    <genClasses ecoreClass="mderl.ecore#//config"/>
     <genClasses image="false" ecoreClass="mderl.ecore#//Mobile"/>
     <genClasses ecoreClass="mderl.ecore#//Dummy"/>
     <genClasses image="false" ecoreClass="mderl.ecore#//Arm"/>
@@ -47,8 +46,29 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//WheeledRobot/wheel_name"/>
     </genClasses>
     <genClasses ecoreClass="mderl.ecore#//ARDrone"/>
-    <genClasses ecoreClass="mderl.ecore#//Model"/>
-    <genClasses ecoreClass="mderl.ecore#//RLKit"/>
-    <genClasses ecoreClass="mderl.ecore#//RLKSac"/>
+    <genClasses ecoreClass="mderl.ecore#//Model">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Model/config"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//RLK_Algorithm"/>
+    <genClasses ecoreClass="mderl.ecore#//RLKConfig">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/algorithm"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/version"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/layer_size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/replay_buffer_size"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/num_epochs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/num_eval_steps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/num_trains"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/num_expl_steps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/min_num_steps"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/max_path_length"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/discount"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/soft_target_tau"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/target_update_period"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/policy_lr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/qf_lr"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/reward_scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/auto_entropy_tuning"/>
+    </genClasses>
+    <genClasses ecoreClass="mderl.ecore#//Config"/>
   </genPackages>
 </genmodel:GenModel>

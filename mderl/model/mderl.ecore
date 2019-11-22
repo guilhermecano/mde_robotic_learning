@@ -6,8 +6,6 @@
         defaultValueLiteral="&quot;experiment&quot;"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0" iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="config" lowerBound="1"
-        eType="#//config" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="agent" lowerBound="1" upperBound="-1"
         eType="#//Agent" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="environment" lowerBound="1"
@@ -21,8 +19,8 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Environment">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scene" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" eType="#//Agent"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="config"/>
   <eClassifiers xsi:type="ecore:EClass" name="Mobile" abstract="true" eSuperTypes="#//RobotComponent"/>
   <eClassifiers xsi:type="ecore:EClass" name="Dummy" eSuperTypes="#//Element"/>
   <eClassifiers xsi:type="ecore:EClass" name="Arm" abstract="true" eSuperTypes="#//Fixed"/>
@@ -51,7 +49,45 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="wheel_name" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ARDrone" eSuperTypes="#//AerialRobot"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true"/>
-  <eClassifiers xsi:type="ecore:EClass" name="RLKit" abstract="true" eSuperTypes="#//Model"/>
-  <eClassifiers xsi:type="ecore:EClass" name="RLKSac" eSuperTypes="#//RLKit"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Model" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="config" lowerBound="1"
+        eType="#//Config" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RLK_Algorithm" eSuperTypes="#//Model"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RLKConfig" eSuperTypes="#//Config">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithm" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="SAC"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="version" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="normal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="layer_size" upperBound="-1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="64"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="replay_buffer_size" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1000000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_epochs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_eval_steps" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_trains" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="num_expl_steps" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min_num_steps" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max_path_length" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1000"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="discount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.99"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="soft_target_tau" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.005"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="target_update_period" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="policy_lr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.0003"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="qf_lr" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.0003"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reward_scale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="auto_entropy_tuning" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
+        defaultValueLiteral="True"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Config" abstract="true"/>
 </ecore:EPackage>
