@@ -6,23 +6,38 @@
         defaultValueLiteral="&quot;experiment&quot;"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0" iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" lowerBound="1" upperBound="-1"
-        eType="#//Agent" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" lowerBound="1" eType="#//Agent"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="environment" lowerBound="1"
-        upperBound="-1" eType="#//Environment" containment="true"/>
+        eType="#//Environment" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Agent">
     <eStructuralFeatures xsi:type="ecore:EReference" name="robotcomponent" lowerBound="1"
         eType="#//RobotComponent" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="model" upperBound="-1"
-        eType="#//Model" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="model" eType="#//Model"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dim_obs" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dim_act" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min_act_value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max_act_value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="100.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="0" iD="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Environment">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="scene" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="agent" eType="#//Agent"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="elements" upperBound="-1"
+        eType="#//general_elements" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="dynamic_reset" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="False"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral="env"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="headless" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" defaultValueLiteral="False"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Mobile" abstract="true" eSuperTypes="#//RobotComponent"/>
-  <eClassifiers xsi:type="ecore:EClass" name="Dummy" eSuperTypes="#//Element"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Dummy" eSuperTypes="#//general_elements"/>
   <eClassifiers xsi:type="ecore:EClass" name="Arm" abstract="true" eSuperTypes="#//Fixed"/>
   <eClassifiers xsi:type="ecore:EClass" name="RobotComponent" abstract="true" eSuperTypes="#//Element">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="joint_names" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -30,16 +45,20 @@
   <eClassifiers xsi:type="ecore:EClass" name="Panda" eSuperTypes="#//Arm"/>
   <eClassifiers xsi:type="ecore:EClass" name="TurtleBot" eSuperTypes="#//WheeledRobot"/>
   <eClassifiers xsi:type="ecore:EClass" name="Element" abstract="true">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="position" lowerBound="1"
-        upperBound="3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="orientation" lowerBound="1"
-        upperBound="3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="linear_velocity" upperBound="3"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="0"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="angular_velocity" upperBound="3"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat" defaultValueLiteral="0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="position" unique="false"
+        lowerBound="1" upperBound="3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="orientation" unique="false"
+        lowerBound="1" upperBound="3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="linear_velocity" unique="false"
+        upperBound="3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.0"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="angular_velocity" unique="false"
+        upperBound="3" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"
+        defaultValueLiteral="0.0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Fixed" abstract="true" eSuperTypes="#//RobotComponent"/>
   <eClassifiers xsi:type="ecore:EClass" name="AerialRobot" abstract="true" eSuperTypes="#//Mobile">
@@ -53,7 +72,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="config" lowerBound="1"
         eType="#//Config" containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="RLK_Algorithm" eSuperTypes="#//Model"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RLKAlgorithm" eSuperTypes="#//Model"/>
   <eClassifiers xsi:type="ecore:EClass" name="RLKConfig" eSuperTypes="#//Config">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="algorithm" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral="SAC"/>
@@ -88,6 +107,9 @@
         defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="auto_entropy_tuning" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"
         defaultValueLiteral="True"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="batch_size" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt" defaultValueLiteral="256"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Config" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="general_elements" abstract="true" eSuperTypes="#//Element"/>
 </ecore:EPackage>

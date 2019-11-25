@@ -1,0 +1,171 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module generate.
+ */]
+[module generate('http://www.example.org/mderl')]
+
+
+[**
+ * The documentation of the template generateElement.
+ * @param anExperiment
+ */]
+[template public generateElement(anExperiment : Experiment)]
+[comment @main/]
+[file (anExperiment.name.concat('.py'), false, 'UTF-8')]
+from larocs_sim.agents.[self.agent.model.config.oclAsType(RLKConfig).algorithm.toLower()/] import experiment
+from larocs_sim.envs.[anExperiment.environment.name.toLower()/] import [anExperiment.environment.name/]
+from rlkit.launchers.launcher_util import setup_logger
+from os.path import join, dirname, abspath
+
+if __name__ == "__main__":
+    variant = dict(
+        algorithm='[self.agent.model.config.oclAsType(RLKConfig).algorithm.toUpper()/]',
+        version='[self.agent.model.config.oclAsType(RLKConfig).version/]',
+        layer_size=[anExperiment.agent.model.config.oclAsType(RLKConfig).layer_size/],
+        replay_buffer_size=int([anExperiment.agent.model.config.oclAsType(RLKConfig).replay_buffer_size/]),
+        algorithm_kwargs=dict(
+            num_epochs=[anExperiment.agent.model.config.oclAsType(RLKConfig).num_epochs/],
+            num_eval_steps_per_epoch=[anExperiment.agent.model.config.oclAsType(RLKConfig).num_eval_steps/],
+            num_trains_per_train_loop=[anExperiment.agent.model.config.oclAsType(RLKConfig).num_trains/],
+            num_expl_steps_per_train_loop=[anExperiment.agent.model.config.oclAsType(RLKConfig).num_expl_steps/],
+            min_num_steps_before_training=[anExperiment.agent.model.config.oclAsType(RLKConfig).min_num_steps/],
+            max_path_length=[anExperiment.agent.model.config.oclAsType(RLKConfig).max_path_length/],
+            batch_size=[anExperiment.agent.model.config.oclAsType(RLKConfig).batch_size/],
+        ),
+        trainer_kwargs=dict(
+            discount=[anExperiment.agent.model.config.oclAsType(RLKConfig).discount/],
+            soft_target_tau=[anExperiment.agent.model.config.oclAsType(RLKConfig).soft_target_tau/],
+            target_update_period=[anExperiment.agent.model.config.oclAsType(RLKConfig).target_update_period/],
+            policy_lr=[anExperiment.agent.model.config.oclAsType(RLKConfig).policy_lr/],
+            qf_lr=[anExperiment.agent.model.config.oclAsType(RLKConfig).qf_lr/],
+            reward_scale=[anExperiment.agent.model.config.oclAsType(RLKConfig).reward_scale/],
+            use_automatic_entropy_tuning=[anExperiment.agent.model.config.oclAsType(RLKConfig).auto_entropy_tuning/],
+        ),
+    )
+    setup_logger('[self.name/]', variant=variant)
+    experiment(variant)
+[/file]
+
+[comment]generate Environment[/comment]
+[generateEnv(anExperiment)/]
+
+[/template]
+
+
+[template public getRobotsSource(anAgent: Agent)  post (replaceAll('\n', '').trim())]
+[if (anAgent.robotcomponent.oclIsKindOf(AerialRobot))]
+aerial
+[elseif (anAgent.robotcomponent.oclIsKindOf(WheeledRobot))]
+wheeled
+[else]
+fixed
+[/if]
+[/template]
+
+[template public getRobotsModel(aRobot: RobotComponent)  post (replaceAll('\n', '').trim())]
+[if (aRobot.oclIsTypeOf(ARDrone))]
+ARDrone
+[elseif (aRobot.oclIsTypeOf(TurtleBot))]
+TurtleBot
+[else]
+Panda
+[/if]
+[/template]
+
+
+[template public generateEnv(anExperiment: Experiment)]
+[file (anExperiment.environment.name.concat('.py'), false, 'UTF-8')]
+from os.path import dirname, join, abspath
+from pyrep import PyRep
+from pyrep.objects.dummy import Dummy
+from larocs_sim.robots.[getRobotsSource(anExperiment.agent)/].[getRobotsModel(anExperiment.agent.robotcomponent).toLower()/] import [getRobotsModel(anExperiment.agent.robotcomponent)/]
+from pyrep.objects.shape getimport Shape
+import numpy as np
+import gym
+
+class [getRobotsModel(anExperiment.agent.robotcomponent)/]Env(object):
+
+    def __init__(self):
+        self.pr = PyRep()
+        self.pr.launch(join(dirname(abspath(__file__),'[anExperiment.environment.scene/]'), headless=[anExperiment.environment.headless/])
+        self.pr.start()
+        self.agent = [getRobotsModel(anExperiment.agent.robotcomponent)/]()
+        self.agent.set_control_loop_enabled(False)
+        self.agent.set_motor_locked_at_zero_velocity(True)
+		self.elements = {}
+		[for (e : Element | anExperiment.environment.elements) separator('\n')]
+		self.elements['['/]'[e.name/]'['['/] = Dummy('[e.name/]')
+		[/for]
+        self.initial_positions = self.agent.pos
+        self.initial_orientations = self.agent.rot_mat
+        # Make sure dummies are orphan if loaded with ttm
+		for k, el in self.elements.itens():
+            el.set_parent(None)
+
+        self.dim_obs = [anExperiment.agent.dim_obs/]
+        self.dim_act = [anExperiment.agent.dim_act/]
+
+        self.min_act = [anExperiment.agent.min_act_value/]
+        self.max_act = [anExperiment.agent.max_act_value/]
+
+        self.min_obs = -np.inf
+        self.max_obs = np.inf
+
+        self.low_act = np.array(['['/]self.min_act[']'/]*self.dim_act)
+        self.high_act = np.array(['['/]self.max_act[']'/]*self.dim_act)
+
+        self.low_obs = np.array(['['/]self.min_obs[']'/]*self.dim_obs)
+        self.high_obs = np.array(['['/]self.max_obs[']'/]*self.dim_obs)
+
+        self.action_space = gym.spaces.Box(self.low_act, self.high_act, dtype=np.float)
+        self.observation_space = gym.spaces.Box(self.low_obs, self.high_obs, dtype=np.float)
+
+    def _get_state(self):
+        '''
+        The user must define the desired state to be acquired from the environment.
+        '''
+        ####[protected ('GETSTATE')]
+        # Your code goes here
+		
+        return state
+        ####[/protected]
+
+    def reset(self):
+        '''
+        Restarts the simulation and sets the quadricopter in a random pose
+        '''
+        [if (anExperiment.environment.dynamic_reset)]
+        '''Modify the code below to define the initial position and initial orientation of \
+           the robot at each reset routine.'''
+        ####[protected ('RESET')]
+        # Modify the parameters below
+        pos = ['['/]0.0, 0.0, 0.0[']'/]
+        ori = ['['/]0.0, 0.0, 0.0[']'/]
+        ####[/protected]
+        self.agent.set_position(pos)
+        self.agent.set_orientation(ori)
+        [else]
+        self.pr.stop()
+        self.pr.start()
+        return self._get_state()
+        [/if]
+
+    def step(self, action):
+        '''
+        Sets up an action, advances one timestep in the simulation \
+           and returns the correspondent reward signal.
+        '''
+        ####[protected ('STEP')]
+        #Your code goes here
+
+
+        return self._get_state(),reward, done, ''
+        ####[/protected]
+
+    def shutdown(self):
+        self.pr.stop()
+        self.pr.shutdown()
+[/file]
+[/template]
+
+

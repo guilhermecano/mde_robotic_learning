@@ -18,10 +18,18 @@
     <genClasses ecoreClass="mderl.ecore#//Agent">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Agent/robotcomponent"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Agent/model"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Agent/dim_obs"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Agent/dim_act"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Agent/min_act_value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Agent/max_act_value"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Agent/id"/>
     </genClasses>
     <genClasses ecoreClass="mderl.ecore#//Environment">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Environment/scene"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference mderl.ecore#//Environment/agent"/>
+      <genFeatures children="true" createChild="true" propertySortChoices="true" ecoreFeature="ecore:EReference mderl.ecore#//Environment/elements"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Environment/dynamic_reset"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Environment/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Environment/headless"/>
     </genClasses>
     <genClasses image="false" ecoreClass="mderl.ecore#//Mobile"/>
     <genClasses ecoreClass="mderl.ecore#//Dummy"/>
@@ -37,6 +45,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/linear_velocity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/angular_velocity"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/id"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//Element/name"/>
     </genClasses>
     <genClasses image="false" ecoreClass="mderl.ecore#//Fixed"/>
     <genClasses image="false" ecoreClass="mderl.ecore#//AerialRobot">
@@ -49,7 +58,7 @@
     <genClasses ecoreClass="mderl.ecore#//Model">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference mderl.ecore#//Model/config"/>
     </genClasses>
-    <genClasses ecoreClass="mderl.ecore#//RLK_Algorithm"/>
+    <genClasses ecoreClass="mderl.ecore#//RLKAlgorithm"/>
     <genClasses ecoreClass="mderl.ecore#//RLKConfig">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/algorithm"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/version"/>
@@ -68,7 +77,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/qf_lr"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/reward_scale"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/auto_entropy_tuning"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute mderl.ecore#//RLKConfig/batch_size"/>
     </genClasses>
     <genClasses ecoreClass="mderl.ecore#//Config"/>
+    <genClasses ecoreClass="mderl.ecore#//general_elements"/>
   </genPackages>
 </genmodel:GenModel>
